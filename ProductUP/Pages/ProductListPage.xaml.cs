@@ -25,7 +25,7 @@ namespace ProductUP.Pages
         {
             InitializeComponent();
             ProductList.ItemsSource = DbConnect.db.Product.ToList();
-
+            //fdsfsd
         }
 
         private void Refresh()
