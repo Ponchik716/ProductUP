@@ -1,4 +1,6 @@
-﻿using System;
+﻿using ProductUP.Componets;
+using ProductUP.Pages;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -23,6 +25,8 @@ namespace ProductUP
         public MainWindow()
         {
             InitializeComponent();
+            Navigation.main = this;
+            Navigation.NextPage(new LogPage());
         }
     }
 }
