@@ -29,7 +29,7 @@ namespace ProductUP.Pages
 
         private void ProductBtn_Click(object sender, RoutedEventArgs e)
         {
-            Navigation.NextPage(new ProductListPage());
+            Navigation.NextPage(new ProductListPage());///dsadas
         }
     }
 }
