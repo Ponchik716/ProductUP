@@ -9,6 +9,7 @@
       Title="OrderListPAge">
 
     <Grid>
-        
+        <TextBlock>Заебался</TextBlock>
+
     </Grid>
 </Page>
