@@ -45,7 +45,7 @@ namespace ProductUP.Pages
                 }
 
             }
-            Navigation.NextPage(new ProductListPage());
+            Navigation.NextPage(new Perehod());
         }
 
         private void RegistrBTN_Click(object sender, RoutedEventArgs e)
