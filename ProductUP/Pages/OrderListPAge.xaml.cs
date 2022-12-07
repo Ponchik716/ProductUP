@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ProductUP.Componets;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -23,6 +24,7 @@ namespace ProductUP.Pages
         public OrderListPAge()
         {
             InitializeComponent();
+            OrderList.ItemsSource = DbConnect.db.Order.ToList();
         }
     }
 }

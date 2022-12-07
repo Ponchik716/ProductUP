@@ -31,5 +31,9 @@ namespace ProductUP.Pages
         {
             Navigation.NextPage(new ProductListPage());///dsadas
         }
+        private void OrderBtn_Click(object sender, RoutedEventArgs e)
+        {
+            Navigation.NextPage(new OrderListPAge());
+        }
     }
 }

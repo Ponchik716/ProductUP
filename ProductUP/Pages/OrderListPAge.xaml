@@ -9,7 +9,63 @@
       Title="OrderListPAge">
 
     <Grid>
-        <TextBlock>Заебался</TextBlock>
+        <ListView Grid.Row="1" x:Name="OrderList" Background="#FFE0A9AF" d:ItemsSource="{d:SampleData ItemCount=5}">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <Border Padding="2" Width="auto" Background="#FFD1EEFC" BorderBrush="Red" BorderThickness="3" CornerRadius="10">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="100"></ColumnDefinition>
+                                <ColumnDefinition Width="200"></ColumnDefinition>
+                                <ColumnDefinition Width="300"/>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="50"></RowDefinition>
+                                <RowDefinition Height="50"></RowDefinition>
+                                <RowDefinition Height="50"></RowDefinition>
+                            </Grid.RowDefinitions>
+                            <StackPanel Grid.Column="1" Grid.Row="0" HorizontalAlignment="Left">
+                                <TextBlock Text="{Binding Name}" FontSize="20"></TextBlock>
+                            </StackPanel>
+                            <StackPanel Grid.Column="0" Grid.Row="0" Grid.RowSpan="3">
+                                <TextBlock Text="{Binding Id}" FontSize="20"/>
+                            </StackPanel>
+                            <StackPanel Grid.Column="0" Grid.Row="1">
+                                <TextBlock Text="{Binding OrderDate}"/>
+                            </StackPanel>
+                            <StackPanel Grid.Column="1" Grid.Row="1">
+                                <TextBlock Text="{Binding Status.Name}"></TextBlock>
+                                <TextBlock Text="{Binding TotalCost}"></TextBlock>
+                            </StackPanel>
+                            <StackPanel Grid.Column="1" Grid.Row="2">
+                                <TextBlock Text="{Binding DateAdd}"/>
+                                <TextBlock Text="{Binding CountryId}"/>
+                            </StackPanel>
+
+                            <ListView Grid.Column="2" Grid.RowSpan="3">
+                                <ListView.ItemTemplate>
+                                    <DataTemplate>
+                                        <Border>
+                                            <Grid>
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="50"></ColumnDefinition>
+                                                    <ColumnDefinition Width="50"></ColumnDefinition>
+                                                </Grid.ColumnDefinitions>
+                                                <Grid.RowDefinitions>
+                                                    <RowDefinition Height="50"></RowDefinition>
+                                                    <RowDefinition Height="50"></RowDefinition>
+                                                </Grid.RowDefinitions>
+                                                
+                                            </Grid>
+                                        </Border>
+                                    </DataTemplate>
+                                </ListView.ItemTemplate>
+                            </ListView>
+                        </Grid>
+                    </Border>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
 
     </Grid>
 </Page>
