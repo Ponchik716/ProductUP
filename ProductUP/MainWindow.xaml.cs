@@ -17,6 +17,7 @@ using System.Windows.Shapes;
 
 namespace ProductUP
 {
+    ///adsadasdas
     /// <summary>
     /// Логика взаимодействия для MainWindow.xaml
     /// </summary>
