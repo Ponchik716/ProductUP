@@ -30,6 +30,7 @@ namespace ProductUP.Pages
 
         private void Refresh()
         {
+
             IEnumerable<Product> filter = DbConnect.db.Product;
             if (Sort.SelectedIndex > 0)
             {

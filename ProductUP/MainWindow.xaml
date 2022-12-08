@@ -22,7 +22,7 @@
         </Grid.RowDefinitions>
         <StackPanel Grid.Row="0" VerticalAlignment="Center" HorizontalAlignment="Left" Orientation="Horizontal" Width="1000">
             <Image Source="/Img/logo.png" Width="150" Margin="10"/>
-            <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="50" Style="{StaticResource Text}" Margin="10">Черешня</TextBlock>
+            <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="50" Style="{StaticResource Text}" Margin="10">КазахШоп</TextBlock>
         </StackPanel>
         <Frame NavigationUIVisibility="Hidden" x:Name="MyFrame" Grid.RowSpan="3">
 
