@@ -9,63 +9,110 @@
       Title="OrderListPAge">
 
     <Grid>
-        <ListView Grid.Row="1" x:Name="OrderList" Background="#FFE0A9AF" d:ItemsSource="{d:SampleData ItemCount=5}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="3*"/>
+            <RowDefinition Height="10*"/>
+            <RowDefinition Height="1*"/>
+        </Grid.RowDefinitions>
+
+        <ListView x:Name="OrdersList" Grid.Row="1" Background="#FFE0A9AF">
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <Border Padding="2" Width="auto" Background="#FFD1EEFC" BorderBrush="Red" BorderThickness="3" CornerRadius="10">
                         <Grid>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="100"></ColumnDefinition>
-                                <ColumnDefinition Width="200"></ColumnDefinition>
-                                <ColumnDefinition Width="300"/>
-                            </Grid.ColumnDefinitions>
                             <Grid.RowDefinitions>
-                                <RowDefinition Height="50"></RowDefinition>
-                                <RowDefinition Height="50"></RowDefinition>
-                                <RowDefinition Height="50"></RowDefinition>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                                <RowDefinition/>
                             </Grid.RowDefinitions>
-                            <StackPanel Grid.Column="1" Grid.Row="0" HorizontalAlignment="Left">
-                                <TextBlock Text="{Binding Name}" FontSize="20"></TextBlock>
-                            </StackPanel>
-                            <StackPanel Grid.Column="0" Grid.Row="0" Grid.RowSpan="3">
-                                <TextBlock Text="{Binding Id}" FontSize="20"/>
-                            </StackPanel>
-                            <StackPanel Grid.Column="0" Grid.Row="1">
-                                <TextBlock Text="{Binding OrderDate}"/>
-                            </StackPanel>
-                            <StackPanel Grid.Column="1" Grid.Row="1">
-                                <TextBlock Text="{Binding Status.Name}"></TextBlock>
-                                <TextBlock Text="{Binding TotalCost}"></TextBlock>
-                            </StackPanel>
-                            <StackPanel Grid.Column="1" Grid.Row="2">
-                                <TextBlock Text="{Binding DateAdd}"/>
-                                <TextBlock Text="{Binding CountryId}"/>
-                            </StackPanel>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="100"/>
+                                <ColumnDefinition Width="100"/>
+                                <ColumnDefinition Width="120"/>
+                                <ColumnDefinition Width="120"/>
+                                <ColumnDefinition Width="90"/>
+                                <ColumnDefinition Width="200"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Grid.Row="0" Grid.Column="0" Margin="2" TextWrapping="Wrap">
+                                <TextBlock.Text>
+                                    <MultiBinding StringFormat="{}Номер {0}">
+                                        <Binding Path="Id"></Binding>
+                                    </MultiBinding>
+                                </TextBlock.Text>
+                            </TextBlock>
 
-                            <ListView Grid.Column="2" Grid.RowSpan="3">
+                            <TextBlock Grid.Row="1" Grid.Column="0" Margin="2" TextWrapping="Wrap">
+                                <TextBlock.Text>
+                                    <MultiBinding StringFormat="{}Дата {0:dd.MM.yyyy}">
+                                        <Binding Path="OrderDate"></Binding>
+                                    </MultiBinding>
+                                </TextBlock.Text>
+                            </TextBlock>
+
+                            <TextBlock Grid.Row="1" Grid.Column="1" Margin="2" TextWrapping="Wrap">
+                                <TextBlock.Text>
+                                    <MultiBinding StringFormat="{}Общая стоимость {0}">
+                                        <Binding Path="TotalCost"></Binding>
+                                    </MultiBinding>
+                                </TextBlock.Text>
+                            </TextBlock>
+
+                            <TextBlock Grid.Row="1" Grid.Column="2" Margin="2" TextWrapping="Wrap">
+                                <TextBlock.Text>
+                                    <MultiBinding StringFormat="{}Исполнитель {0}.{1}.{2}">
+                                        <Binding Path="User.Surname"></Binding>
+                                        <Binding Path="User.Name[0]"></Binding>
+                                        <Binding Path="User.Patronymic[0]"></Binding>
+                                    </MultiBinding>
+                                </TextBlock.Text>
+                            </TextBlock>
+
+                            <TextBlock Grid.Row="1" Grid.Column="3" Margin="2" TextWrapping="Wrap">
+                                <TextBlock.Text>
+                                    <MultiBinding StringFormat="{}Заказчик {0}.{1}.{2}">
+                                        <Binding Path="User1.Surname"></Binding>
+                                        <Binding Path="User1.Name[0]"></Binding>
+                                        <Binding Path="User1.Patronymic[0]"></Binding>
+                                    </MultiBinding>
+                                </TextBlock.Text>
+                            </TextBlock>
+
+                            <TextBlock Grid.Row="0" Grid.Column="4" Margin="2" TextWrapping="Wrap">
+                                Статус
+                            </TextBlock>
+
+                            <TextBlock Grid.Row="1" Grid.Column="4" Margin="2" TextWrapping="Wrap">
+                                <TextBlock.Text>
+                                    <Binding Path="Status.Name"></Binding>
+                                </TextBlock.Text>
+                            </TextBlock>
+
+                            <ListView ItemsSource="{Binding ProductOrder}" Grid.Row="0" Grid.Column="5" Grid.ColumnSpan="2" Grid.RowSpan="2">
                                 <ListView.ItemTemplate>
                                     <DataTemplate>
-                                        <Border>
-                                            <Grid>
-                                                <Grid.ColumnDefinitions>
-                                                    <ColumnDefinition Width="50"></ColumnDefinition>
-                                                    <ColumnDefinition Width="50"></ColumnDefinition>
-                                                </Grid.ColumnDefinitions>
-                                                <Grid.RowDefinitions>
-                                                    <RowDefinition Height="50"></RowDefinition>
-                                                    <RowDefinition Height="50"></RowDefinition>
-                                                </Grid.RowDefinitions>
-                                                
-                                            </Grid>
-                                        </Border>
+                                        <TextBlock>
+                                            <TextBlock.Text>
+                                                <MultiBinding StringFormat="{}{0} кол.{1}">
+                                                    <Binding Path ="Product.Name"></Binding>
+                                                    <Binding Path ="Count"></Binding>
+                                                </MultiBinding>
+                                            </TextBlock.Text>
+                                        </TextBlock>
                                     </DataTemplate>
                                 </ListView.ItemTemplate>
+                                <ListView.ItemsPanel>
+                                    <ItemsPanelTemplate>
+                                        <WrapPanel></WrapPanel>
+                                    </ItemsPanelTemplate>
+                                </ListView.ItemsPanel>
                             </ListView>
                         </Grid>
                     </Border>
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
-
+        <StackPanel Grid.Row="2" VerticalAlignment="Center" HorizontalAlignment="Left">
+            <Button Margin="10" Width="200" Height="20" Style="{StaticResource Button}" Click="ExecutionBtn_Click">Оформить заказ</Button>
+        </StackPanel>
     </Grid>
 </Page>

@@ -11,11 +11,39 @@ namespace ProductUP.Componets
     {
         public static bool isAuth = false;
         public static User AuthUser = null;
+        public static List<Nav> navs = new List<Nav>();
 
         public static MainWindow main;
-        public static void NextPage(Page page)
+        public static void NextPage(Nav nav)
         {
-            main.MyFrame.Navigate(page);
+            Update(nav);
+            navs.Add(nav);
+        }
+        public static void BackPage()
+        {
+            if (navs.Count > 1)
+            {
+                navs.Remove(navs[navs.Count - 1]);
+                Update(navs[navs.Count - 1]);
+            }
+        }
+        private static void Update(Nav nav)
+        {
+            
+            main.BackBtn.Visibility = navs.Count > 1 ? System.Windows.Visibility.Visible : System.Windows.Visibility.Collapsed;
+            main.ExitBtn.Visibility = isAuth == true ? System.Windows.Visibility.Visible : System.Windows.Visibility.Collapsed;
+            main.MyFrame.Navigate(nav.Page);
+        }
+
+    }
+    class Nav
+    {
+
+        public Page Page { get; set; }
+        public Nav(Page Page)
+        {
+            this.Page = Page;
         }
     }
+
 }

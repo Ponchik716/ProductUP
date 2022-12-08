@@ -24,7 +24,12 @@ namespace ProductUP.Pages
         public OrderListPAge()
         {
             InitializeComponent();
-            OrderList.ItemsSource = DbConnect.db.Order.ToList();
+            OrdersList.ItemsSource = DbConnect.db.Order.ToList();
+        }
+
+        private void ExecutionBtn_Click(object sender, RoutedEventArgs e)
+        {
+            Navigation.NextPage(new Nav(new Execution()));
         }
     }
 }

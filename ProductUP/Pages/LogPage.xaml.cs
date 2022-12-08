@@ -25,6 +25,8 @@ namespace ProductUP.Pages
         public LogPage()
         {
             InitializeComponent();
+            LoginTb.Text = Properties.Settings.Default.Login;
+            PasswordTb.Password = Properties.Settings.Default.Password;
         }
         private void LoginBTN_Click(object sender, RoutedEventArgs e)
         {
@@ -39,18 +41,36 @@ namespace ProductUP.Pages
             {
                 Navigation.AuthUser = DbConnect.db.User.ToList().Find(x => x.Login == login && x.Password == password);
                 if (Navigation.AuthUser == null)
-                {
-                    Navigation.AuthUser = DbConnect.db.User.ToList().Find(x => x.Login == login && x.Password == password);
+                {    
                     MessageBox.Show("Такого пользователя нет", "Уведомление", MessageBoxButton.OK, MessageBoxImage.Information);
+                }
+                else
+                {
+                    if (SaveCb.IsChecked == true)
+                    {
+                        Properties.Settings.Default.Login = LoginTb.Text.Trim();
+                        Properties.Settings.Default.Password = PasswordTb.Password.Trim();
+                        Properties.Settings.Default.Save();
+                    }
+                    else if (SaveCb.IsChecked == false)
+                    {
+                        Properties.Settings.Default.Login = "";
+                        Properties.Settings.Default.Password = "";
+                        Properties.Settings.Default.Save();
+                    }
+                    Navigation.isAuth = true;
+                    Navigation.NextPage(new Nav(new Perehod()));
+                    
                 }
 
             }
-            Navigation.NextPage(new Perehod());
+            
         }
 
         private void RegistrBTN_Click(object sender, RoutedEventArgs e)
         {
-            Navigation.NextPage(new RegistrPage());
+            Navigation.isAuth = true;
+            Navigation.NextPage(new Nav(new RegistrPage()));
         }
     }
 }

@@ -26,7 +26,19 @@ namespace ProductUP
         {
             InitializeComponent();
             Navigation.main = this;
-            Navigation.NextPage(new LogPage());
+            Navigation.NextPage(new Nav(new LogPage()));
+        }
+
+        private void ExitBtn_Click(object sender, RoutedEventArgs e)
+        {
+            Navigation.isAuth = false;
+            Navigation.navs.Clear();
+            Navigation.NextPage(new Nav(new LogPage()));
+        }
+
+        private void BackBtn_Click(object sender, RoutedEventArgs e)
+        {
+            Navigation.BackPage();
         }
     }
 }

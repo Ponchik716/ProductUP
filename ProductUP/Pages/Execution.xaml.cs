@@ -12,28 +12,17 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using ProductUP.Pages;
-using ProductUP.Componets;
 
 namespace ProductUP.Pages
 {
     /// <summary>
-    /// Логика взаимодействия для Perehod.xaml
+    /// Логика взаимодействия для Execution.xaml
     /// </summary>
-    public partial class Perehod : Page
+    public partial class Execution : Page
     {
-        public Perehod()
+        public Execution()
         {
             InitializeComponent();
-        }
-
-        private void ProductBtn_Click(object sender, RoutedEventArgs e)
-        {
-            Navigation.NextPage(new Nav(new ProductListPage()));///dsadas
-        }
-        private void OrderBtn_Click(object sender, RoutedEventArgs e)
-        {
-            Navigation.NextPage(new Nav(new OrderListPAge()));
         }
     }
 }

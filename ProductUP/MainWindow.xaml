@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ProductUP"
         mc:Ignorable="d"
-        Title="MainWindow" Height="500" Width="1000">
+        Title="MainWindow" Height="600" Width="1000">
     <Grid>
         <Grid.Background>
             <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
@@ -24,8 +24,12 @@
             <Image Source="/Img/logo.png" Width="150" Margin="10"/>
             <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="50" Style="{StaticResource Text}" Margin="10">Черешня</TextBlock>
         </StackPanel>
-        <Frame x:Name="MyFrame" Grid.RowSpan="3">
+        <Frame NavigationUIVisibility="Hidden" x:Name="MyFrame" Grid.RowSpan="3">
 
         </Frame>
+        <StackPanel Grid.Row="0" VerticalAlignment="Top" HorizontalAlignment="Right" Orientation="Horizontal">
+            <Button Margin="10" Width="30" Height="30" Style="{StaticResource Button}" x:Name="BackBtn" Click="BackBtn_Click" FontSize="20">☚</Button>
+            <Button Margin="10" Width="30" Height="30" Style="{StaticResource Button}" x:Name="ExitBtn" Click="ExitBtn_Click" FontSize="20">🚪</Button>
+        </StackPanel>
     </Grid>
 </Window>

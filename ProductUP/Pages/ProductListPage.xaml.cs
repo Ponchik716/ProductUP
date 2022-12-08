@@ -39,7 +39,7 @@ namespace ProductUP.Pages
                     filter = filter.OrderByDescending(x => x.Name);
                 else if (Sort.SelectedIndex == 3)
                     filter = filter.OrderBy(x => x.DateAdd);
-                else if (Sort.SelectedIndex == 4)
+                else if (Sort.SelectedIndex == 4) 
                     filter = filter.OrderByDescending(x => x.DateAdd);
             }
             ////
@@ -56,9 +56,32 @@ namespace ProductUP.Pages
             Refresh();
         }
 
-        private void SearchBox_TextChanged(object sender, TextChangedEventArgs e)
+    
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            Navigation.NextPage(new Nav(new ProductAdd(new Product())));
+        }
+
+        private void Button_Click_1(object sender, RoutedEventArgs e)
+        {
+            var selProd = (sender as Button).DataContext as Product;
+            Navigation.NextPage(new Nav (new ProductAdd(selProd)));
+        }
+
+        private void Button_Click_2(object sender, RoutedEventArgs e)
+        {
+            //var selSection = (sender as Button).DataContext as Product;
+            //DbConnect.db.Product.Remove(selSection);
+
+            //MessageBox.Show("Запись удалена!");
+            //DbConnect.db.SaveChanges();
+           
+        }
+
+        private void SearchBox_TextChanged_1(object sender, TextChangedEventArgs e)
         {
             Refresh();
-        }
+        } 
     }
 }

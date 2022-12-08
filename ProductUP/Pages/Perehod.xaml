@@ -12,7 +12,7 @@
         <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
             <Button Margin="10" x:Name="ProductBtn" Style="{StaticResource Button}" Click="ProductBtn_Click">Список продуктов</Button>
             <Button Margin="10" x:Name="OrderBtn" Click="OrderBtn_Click" Style="{StaticResource Button}">Список заказов</Button>
-            <Button Margin="10" x:Name="OrderOfBtn" Style="{StaticResource Button}">Оформление заказа</Button>
+            <Button Margin="10" x:Name="OrderOfBtn" Style="{StaticResource Button}">Поступление продуктов</Button>
         </StackPanel>
         
     </Grid>

@@ -10,7 +10,7 @@
 
     <Grid>
         <StackPanel Orientation="Vertical"  VerticalAlignment="Center" HorizontalAlignment="Center">
-            <TextBlock FontFamily="White" FontSize="20" Margin="10" Width="200" Style="{StaticResource Text}">Авторизация</TextBlock>
+            
             <TextBlock  FontFamily="White" FontSize="15" Margin="10" Style="{StaticResource Text}">Логин</TextBlock>
             <TextBox x:Name="LoginTb" Margin="5"></TextBox>
             <TextBlock FontFamily="White" FontSize="15" Margin="10" Style="{StaticResource Text}">Пароль</TextBlock>
