@@ -29,7 +29,20 @@ namespace ProductUP.Pages
 
         private void ExecutionBtn_Click(object sender, RoutedEventArgs e)
         {
-            Navigation.NextPage(new Nav(new Execution()));
+            if (Navigation.role == 1 && Navigation.role == 3 && Navigation.role == 2)
+            {
+                Navigation.NextPage(new Nav(new Execution()));
+            }
+            else
+                MessageBox.Show("Отказано в доступе");
+            
+        }
+
+        private void DeleteOrderBtn_Click(object sender, RoutedEventArgs e)
+        {
+            var selSection = (sender as Button).DataContext as ProductOrder;
+            DbConnect.db.ProductOrder.Remove(selSection);
+            DbConnect.db.SaveChanges(); 
         }
     }
 }

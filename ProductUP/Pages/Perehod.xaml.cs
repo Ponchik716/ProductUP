@@ -35,5 +35,10 @@ namespace ProductUP.Pages
         {
             Navigation.NextPage(new Nav(new OrderListPAge()));
         }
+
+        private void OrderOfBtn_Click(object sender, RoutedEventArgs e)
+        {
+            
+        }
     }
 }

@@ -7,20 +7,19 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace ProductUP
+namespace ProductUP.Componets
 {
     using System;
     using System.Collections.Generic;
     
-    public partial class ProductSupplier
+    public partial class ProductOrder
     {
         public int Id { get; set; }
+        public Nullable<int> OrderId { get; set; }
         public Nullable<int> ProductId { get; set; }
-        public Nullable<int> ReceiptOfProductId { get; set; }
         public Nullable<int> Count { get; set; }
-        public Nullable<int> PriceUnit { get; set; }
     
+        public virtual Order Order { get; set; }
         public virtual Product Product { get; set; }
-        public virtual ReceiptOfProduct ReceiptOfProduct { get; set; }
     }
 }

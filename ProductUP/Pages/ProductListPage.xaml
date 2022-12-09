@@ -17,7 +17,7 @@
 
         <StackPanel Orientation="Horizontal" Grid.Row="0" HorizontalAlignment="Right">
             <StackPanel Orientation="Horizontal" Margin="10">
-                <TextBlock Style="{StaticResource Text}" HorizontalAlignment="Right" Margin="5">Сортировка</TextBlock>
+                <TextBlock Style="{StaticResource Text}" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="5">Сортировка</TextBlock>
                 <ComboBox x:Name="Sort" Margin="5"  HorizontalAlignment="Right" Width="100" Height="20" SelectionChanged="Sort_SelectionChanged">
                     <ComboBoxItem>По умолчянию</ComboBoxItem>
                     <ComboBoxItem>По возрастанию (алфавит)</ComboBoxItem>
@@ -27,7 +27,7 @@
                 </ComboBox>
             </StackPanel>
             <StackPanel Orientation="Horizontal">
-                <TextBlock Style="{StaticResource Text}" Margin="5">Поиск</TextBlock>
+                <TextBlock Style="{StaticResource Text}" Margin="2" VerticalAlignment="Center">Поиск</TextBlock>
                 <TextBox Width="200" Height="20" Margin="5" x:Name="SearchBox" TextChanged="SearchBox_TextChanged_1" ></TextBox>
             </StackPanel>
         </StackPanel>
@@ -38,7 +38,8 @@
                         <Grid>
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="100"></ColumnDefinition>
-                                <ColumnDefinition Width="600"></ColumnDefinition>
+                                <ColumnDefinition Width="400"></ColumnDefinition>
+                                <ColumnDefinition Width="200"/>
                             </Grid.ColumnDefinitions>
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="50"></RowDefinition>
@@ -62,9 +63,19 @@
 
                                 </StackPanel>
                                 <StackPanel Orientation="Horizontal">
-                                    <Button Style="{StaticResource Button}" Width="100" Click="Button_Click_1">Редактировать</Button>
-                                    <Button Style="{StaticResource Button}" Click="Button_Click_2">Удалить</Button>
+                                    <Button Style="{StaticResource Button}" Width="100"  Click="Button_Click_1">Редактировать</Button>
+                                    <Button Style="{StaticResource Button}" Width="100" Margin="10 0 0 0" Click="ButtonPost_Click">Добавить в поставку</Button>
                                 </StackPanel>
+                            </StackPanel>
+                            <StackPanel Grid.Row="0" Grid.Column="2" Grid.RowSpan="3" Grid.ColumnSpan="3" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                <ListView ItemsSource="{Binding ProductCountry}" Background="#FFD1EEFC" Height="auto">
+                                    <ListView.ItemTemplate>
+                                        <DataTemplate>
+                                            <Label Content="{Binding Country.Name}" Background="{Binding Country.Color}">
+                                            </Label>
+                                        </DataTemplate>
+                                    </ListView.ItemTemplate>
+                                </ListView>
                             </StackPanel>
 
                         </Grid>
@@ -73,7 +84,7 @@
             </ListView.ItemTemplate>
         </ListView>
         <StackPanel Grid.Row="2" Orientation="Horizontal">
-            <Button Style="{StaticResource Button}" Width="150" Height="20" Margin="5" Click="Button_Click">Добавление продукта</Button>
+            <Button Style="{StaticResource Button}" x:Name="AddBTn" Width="150" Height="20" Margin="5" Click="Button_Click">Добавление продукта</Button>
         </StackPanel> 
     </Grid>
 </Page>

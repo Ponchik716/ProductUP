@@ -7,23 +7,24 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace ProductUP
+namespace ProductUP.Componets
 {
     using System;
     using System.Collections.Generic;
     
-    public partial class Status
+    public partial class Country
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Status()
+        public Country()
         {
-            this.Order = new HashSet<Order>();
+            this.ProductCountry = new HashSet<ProductCountry>();
         }
     
         public int Id { get; set; }
         public string Name { get; set; }
+        public string Color { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Order> Order { get; set; }
+        public virtual ICollection<ProductCountry> ProductCountry { get; set; }
     }
 }

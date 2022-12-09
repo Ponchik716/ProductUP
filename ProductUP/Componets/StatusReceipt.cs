@@ -7,18 +7,23 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace ProductUP
+namespace ProductUP.Componets
 {
     using System;
     using System.Collections.Generic;
     
-    public partial class ProductCountry
+    public partial class StatusReceipt
     {
-        public int Id { get; set; }
-        public Nullable<int> ProductId { get; set; }
-        public Nullable<int> CountryId { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public StatusReceipt()
+        {
+            this.ReceiptOfProduct = new HashSet<ReceiptOfProduct>();
+        }
     
-        public virtual Country Country { get; set; }
-        public virtual Product Product { get; set; }
+        public int Id { get; set; }
+        public string Name { get; set; }
+    
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<ReceiptOfProduct> ReceiptOfProduct { get; set; }
     }
 }

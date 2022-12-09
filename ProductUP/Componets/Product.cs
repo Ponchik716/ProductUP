@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace ProductUP
+namespace ProductUP.Componets
 {
     using System;
     using System.Collections.Generic;
@@ -20,6 +20,7 @@ namespace ProductUP
             this.ProductCountry = new HashSet<ProductCountry>();
             this.ProductOrder = new HashSet<ProductOrder>();
             this.ProductSupplier = new HashSet<ProductSupplier>();
+            this.PostProd = new HashSet<PostProd>();
         }
     
         public int Id { get; set; }
@@ -38,5 +39,7 @@ namespace ProductUP
         public virtual ICollection<ProductOrder> ProductOrder { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ProductSupplier> ProductSupplier { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<PostProd> PostProd { get; set; }
     }
 }

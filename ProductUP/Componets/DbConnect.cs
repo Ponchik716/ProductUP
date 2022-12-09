@@ -8,6 +8,6 @@ namespace ProductUP.Componets
 {
     internal class DbConnect
     {
-        public static Uchebnaya_practikaEntities db = new Uchebnaya_practikaEntities();
+        public static Ent db = new Ent();
     }
 }

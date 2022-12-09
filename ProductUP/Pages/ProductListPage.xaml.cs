@@ -25,7 +25,10 @@ namespace ProductUP.Pages
         {
             InitializeComponent();
             ProductList.ItemsSource = DbConnect.db.Product.ToList();
-            //fdsfsd
+            if (Navigation.role == 1)
+            {
+                AddBTn.Visibility = Visibility.Hidden;
+            }
         }
 
         private void Refresh()
@@ -66,8 +69,15 @@ namespace ProductUP.Pages
 
         private void Button_Click_1(object sender, RoutedEventArgs e)
         {
-            var selProd = (sender as Button).DataContext as Product;
-            Navigation.NextPage(new Nav (new ProductAdd(selProd)));
+            if (Navigation.role == 1)
+            {
+                MessageBox.Show("Отказано в доступе");
+            }
+            else
+            {
+                var selProd = (sender as Button).DataContext as Product;
+                Navigation.NextPage(new Nav (new ProductAdd(selProd)));
+            }
         }
 
         private void Button_Click_2(object sender, RoutedEventArgs e)
@@ -83,6 +93,14 @@ namespace ProductUP.Pages
         private void SearchBox_TextChanged_1(object sender, TextChangedEventArgs e)
         {
             Refresh();
-        } 
+        }
+
+        private void ButtonPost_Click(object sender, RoutedEventArgs e)
+        {
+            if (Navigation.role == 1 && Navigation.role == 2 && Navigation.role == 2)
+            {
+                MessageBox.Show("Отказано в доступе");
+            }
+        }
     }
 }

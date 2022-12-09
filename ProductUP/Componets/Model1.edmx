@@ -4,13 +4,14 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="Хранилище Uchebnaya_practikaModel" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="Хранилище Uchebnaya_practikaModel" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Country">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Name" Type="nvarchar" MaxLength="50" />
+          <Property Name="Color" Type="nvarchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="Order">
           <Key>
@@ -22,6 +23,20 @@
           <Property Name="EmployeeId" Type="int" />
           <Property Name="ClientId" Type="int" />
           <Property Name="StatusId" Type="int" />
+        </EntityType>
+        <EntityType Name="Post">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="PostProd">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="ProductId" Type="int" Nullable="false" />
+          <Property Name="PostId" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="Product">
           <Key>
@@ -168,6 +183,30 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_PostProd_Post">
+          <End Role="Post" Type="Self.Post" Multiplicity="1" />
+          <End Role="PostProd" Type="Self.PostProd" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Post">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="PostProd">
+              <PropertyRef Name="PostId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PostProd_Product">
+          <End Role="Product" Type="Self.Product" Multiplicity="1" />
+          <End Role="PostProd" Type="Self.PostProd" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Product">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="PostProd">
+              <PropertyRef Name="ProductId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Product_Unit">
           <End Role="Unit" Type="Self.Unit" Multiplicity="0..1" />
           <End Role="Product" Type="Self.Product" Multiplicity="*" />
@@ -216,7 +255,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_ProductOrder_Product">
+        <Association Name="FK_ProductOrder_Product1">
           <End Role="Product" Type="Self.Product" Multiplicity="0..1" />
           <End Role="ProductOrder" Type="Self.ProductOrder" Multiplicity="*" />
           <ReferentialConstraint>
@@ -291,6 +330,8 @@
         <EntityContainer Name="Хранилище Uchebnaya_practikaModelContainer">
           <EntitySet Name="Country" EntityType="Self.Country" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Order" EntityType="Self.Order" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Post" EntityType="Self.Post" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PostProd" EntityType="Self.PostProd" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Product" EntityType="Self.Product" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ProductCountry" EntityType="Self.ProductCountry" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ProductOrder" EntityType="Self.ProductOrder" Schema="dbo" store:Type="Tables" />
@@ -315,6 +356,14 @@
             <End Role="User" EntitySet="User" />
             <End Role="Order" EntitySet="Order" />
           </AssociationSet>
+          <AssociationSet Name="FK_PostProd_Post" Association="Self.FK_PostProd_Post">
+            <End Role="Post" EntitySet="Post" />
+            <End Role="PostProd" EntitySet="PostProd" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PostProd_Product" Association="Self.FK_PostProd_Product">
+            <End Role="Product" EntitySet="Product" />
+            <End Role="PostProd" EntitySet="PostProd" />
+          </AssociationSet>
           <AssociationSet Name="FK_Product_Unit" Association="Self.FK_Product_Unit">
             <End Role="Unit" EntitySet="Unit" />
             <End Role="Product" EntitySet="Product" />
@@ -331,7 +380,7 @@
             <End Role="Order" EntitySet="Order" />
             <End Role="ProductOrder" EntitySet="ProductOrder" />
           </AssociationSet>
-          <AssociationSet Name="FK_ProductOrder_Product" Association="Self.FK_ProductOrder_Product">
+          <AssociationSet Name="FK_ProductOrder_Product1" Association="Self.FK_ProductOrder_Product1">
             <End Role="Product" EntitySet="Product" />
             <End Role="ProductOrder" EntitySet="ProductOrder" />
           </AssociationSet>
@@ -356,8 +405,7 @@
             <End Role="User" EntitySet="User" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="Uchebnaya_practikaModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -368,6 +416,7 @@
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="ProductCountry" Relationship="Self.FK_ProductCountry_Country" FromRole="Country" ToRole="ProductCountry" />
+          <Property Name="Color" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="Order">
           <Key>
@@ -382,24 +431,7 @@
           <NavigationProperty Name="Status" Relationship="Self.FK_Order_Status" FromRole="Order" ToRole="Status" />
           <NavigationProperty Name="User" Relationship="Self.FK_Order_User" FromRole="Order" ToRole="User" />
           <NavigationProperty Name="User1" Relationship="Self.FK_Order_User1" FromRole="Order" ToRole="User" />
-          <NavigationProperty Name="ProductOrder" Relationship="Self.FK_ProductOrder_Order" FromRole="Order" ToRole="ProductOrder" />
-        </EntityType>
-        <EntityType Name="Product">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Discription" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="Photo" Type="Binary" MaxLength="Max" FixedLength="false" />
-          <Property Name="DateAdd" Type="DateTime" Precision="0" />
-          <Property Name="UnitId" Type="Int32" />
-          <Property Name="Count" Type="Int32" />
-          <Property Name="Cost" Type="Decimal" Precision="10" Scale="2" />
-          <NavigationProperty Name="Unit" Relationship="Self.FK_Product_Unit" FromRole="Product" ToRole="Unit" />
-          <NavigationProperty Name="ProductCountry" Relationship="Self.FK_ProductCountry_Product" FromRole="Product" ToRole="ProductCountry" />
-          <NavigationProperty Name="ProductOrder" Relationship="Self.FK_ProductOrder_Product" FromRole="Product" ToRole="ProductOrder" />
-          <NavigationProperty Name="ProductSupplier" Relationship="Self.FK_ProductSupplier_Product" FromRole="Product" ToRole="ProductSupplier" />
+          <NavigationProperty Name="ProductOrder" Relationship="Uchebnaya_practikaModel.FK_ProductOrder_Order" FromRole="Order" ToRole="ProductOrder" />
         </EntityType>
         <EntityType Name="ProductCountry">
           <Key>
@@ -409,18 +441,7 @@
           <Property Name="ProductId" Type="Int32" />
           <Property Name="CountryId" Type="Int32" />
           <NavigationProperty Name="Country" Relationship="Self.FK_ProductCountry_Country" FromRole="ProductCountry" ToRole="Country" />
-          <NavigationProperty Name="Product" Relationship="Self.FK_ProductCountry_Product" FromRole="ProductCountry" ToRole="Product" />
-        </EntityType>
-        <EntityType Name="ProductOrder">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="OrderId" Type="Int32" />
-          <Property Name="ProductId" Type="Int32" />
-          <Property Name="Count" Type="Int32" />
-          <NavigationProperty Name="Order" Relationship="Self.FK_ProductOrder_Order" FromRole="ProductOrder" ToRole="Order" />
-          <NavigationProperty Name="Product" Relationship="Self.FK_ProductOrder_Product" FromRole="ProductOrder" ToRole="Product" />
+          <NavigationProperty Name="Product" Relationship="Uchebnaya_practikaModel.FK_ProductCountry_Product" FromRole="ProductCountry" ToRole="Product" />
         </EntityType>
         <EntityType Name="ProductSupplier">
           <Key>
@@ -431,8 +452,8 @@
           <Property Name="ReceiptOfProductId" Type="Int32" />
           <Property Name="Count" Type="Int32" />
           <Property Name="PriceUnit" Type="Int32" />
-          <NavigationProperty Name="Product" Relationship="Self.FK_ProductSupplier_Product" FromRole="ProductSupplier" ToRole="Product" />
           <NavigationProperty Name="ReceiptOfProduct" Relationship="Self.FK_ProductSupplier_ReceiptOfProduct" FromRole="ProductSupplier" ToRole="ReceiptOfProduct" />
+          <NavigationProperty Name="Product" Relationship="Uchebnaya_practikaModel.FK_ProductSupplier_Product" FromRole="ProductSupplier" ToRole="Product" />
         </EntityType>
         <EntityType Name="ReceiptOfProduct">
           <Key>
@@ -495,7 +516,7 @@
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="Product" Relationship="Self.FK_Product_Unit" FromRole="Unit" ToRole="Product" />
+          <NavigationProperty Name="Product" Relationship="Uchebnaya_practikaModel.FK_Product_Unit" FromRole="Unit" ToRole="Product" />
         </EntityType>
         <EntityType Name="User">
           <Key>
@@ -562,66 +583,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_ProductOrder_Order">
-          <End Role="Order" Type="Self.Order" Multiplicity="0..1" />
-          <End Role="ProductOrder" Type="Self.ProductOrder" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Order">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="ProductOrder">
-              <PropertyRef Name="OrderId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Product_Unit">
-          <End Role="Unit" Type="Self.Unit" Multiplicity="0..1" />
-          <End Role="Product" Type="Self.Product" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Unit">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="Product">
-              <PropertyRef Name="UnitId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_ProductCountry_Product">
-          <End Role="Product" Type="Self.Product" Multiplicity="0..1" />
-          <End Role="ProductCountry" Type="Self.ProductCountry" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Product">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="ProductCountry">
-              <PropertyRef Name="ProductId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_ProductOrder_Product">
-          <End Role="Product" Type="Self.Product" Multiplicity="0..1" />
-          <End Role="ProductOrder" Type="Self.ProductOrder" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Product">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="ProductOrder">
-              <PropertyRef Name="ProductId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_ProductSupplier_Product">
-          <End Role="Product" Type="Self.Product" Multiplicity="0..1" />
-          <End Role="ProductSupplier" Type="Self.ProductSupplier" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Product">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="ProductSupplier">
-              <PropertyRef Name="ProductId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_ProductSupplier_ReceiptOfProduct">
           <End Role="ReceiptOfProduct" Type="Self.ReceiptOfProduct" Multiplicity="0..1" />
           <End Role="ProductSupplier" Type="Self.ProductSupplier" Multiplicity="*" />
@@ -670,12 +631,10 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="Uchebnaya_practikaEntities" annotation:LazyLoadingEnabled="true">
+        <EntityContainer Name="Ent" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Country" EntityType="Self.Country" />
           <EntitySet Name="Order" EntityType="Self.Order" />
-          <EntitySet Name="Product" EntityType="Self.Product" />
           <EntitySet Name="ProductCountry" EntityType="Self.ProductCountry" />
-          <EntitySet Name="ProductOrder" EntityType="Self.ProductOrder" />
           <EntitySet Name="ProductSupplier" EntityType="Self.ProductSupplier" />
           <EntitySet Name="ReceiptOfProduct" EntityType="Self.ReceiptOfProduct" />
           <EntitySet Name="Role" EntityType="Self.Role" />
@@ -701,26 +660,6 @@
             <End Role="User" EntitySet="User" />
             <End Role="Order" EntitySet="Order" />
           </AssociationSet>
-          <AssociationSet Name="FK_ProductOrder_Order" Association="Self.FK_ProductOrder_Order">
-            <End Role="Order" EntitySet="Order" />
-            <End Role="ProductOrder" EntitySet="ProductOrder" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Product_Unit" Association="Self.FK_Product_Unit">
-            <End Role="Unit" EntitySet="Unit" />
-            <End Role="Product" EntitySet="Product" />
-          </AssociationSet>
-          <AssociationSet Name="FK_ProductCountry_Product" Association="Self.FK_ProductCountry_Product">
-            <End Role="Product" EntitySet="Product" />
-            <End Role="ProductCountry" EntitySet="ProductCountry" />
-          </AssociationSet>
-          <AssociationSet Name="FK_ProductOrder_Product" Association="Self.FK_ProductOrder_Product">
-            <End Role="Product" EntitySet="Product" />
-            <End Role="ProductOrder" EntitySet="ProductOrder" />
-          </AssociationSet>
-          <AssociationSet Name="FK_ProductSupplier_Product" Association="Self.FK_ProductSupplier_Product">
-            <End Role="Product" EntitySet="Product" />
-            <End Role="ProductSupplier" EntitySet="ProductSupplier" />
-          </AssociationSet>
           <AssociationSet Name="FK_ProductSupplier_ReceiptOfProduct" Association="Self.FK_ProductSupplier_ReceiptOfProduct">
             <End Role="ReceiptOfProduct" EntitySet="ReceiptOfProduct" />
             <End Role="ProductSupplier" EntitySet="ProductSupplier" />
@@ -737,16 +676,179 @@
             <End Role="Role" EntitySet="Role" />
             <End Role="User" EntitySet="User" />
           </AssociationSet>
+          <EntitySet Name="Product" EntityType="Uchebnaya_practikaModel.Product" />
+          <EntitySet Name="ProductOrder" EntityType="Uchebnaya_practikaModel.ProductOrder" />
+          <AssociationSet Name="FK_ProductOrder_Order" Association="Uchebnaya_practikaModel.FK_ProductOrder_Order">
+            <End Role="Order" EntitySet="Order" />
+            <End Role="ProductOrder" EntitySet="ProductOrder" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Product_Unit" Association="Uchebnaya_practikaModel.FK_Product_Unit">
+            <End Role="Unit" EntitySet="Unit" />
+            <End Role="Product" EntitySet="Product" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ProductCountry_Product" Association="Uchebnaya_practikaModel.FK_ProductCountry_Product">
+            <End Role="Product" EntitySet="Product" />
+            <End Role="ProductCountry" EntitySet="ProductCountry" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ProductOrder_Product1" Association="Uchebnaya_practikaModel.FK_ProductOrder_Product1">
+            <End Role="Product" EntitySet="Product" />
+            <End Role="ProductOrder" EntitySet="ProductOrder" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ProductSupplier_Product" Association="Uchebnaya_practikaModel.FK_ProductSupplier_Product">
+            <End Role="Product" EntitySet="Product" />
+            <End Role="ProductSupplier" EntitySet="ProductSupplier" />
+          </AssociationSet>
+          <EntitySet Name="Post" EntityType="Uchebnaya_practikaModel.Post" />
+          <EntitySet Name="PostProd" EntityType="Uchebnaya_practikaModel.PostProd" />
+          <AssociationSet Name="FK_PostProd_Post" Association="Uchebnaya_practikaModel.FK_PostProd_Post">
+            <End Role="Post" EntitySet="Post" />
+            <End Role="PostProd" EntitySet="PostProd" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PostProd_Product" Association="Uchebnaya_practikaModel.FK_PostProd_Product">
+            <End Role="Product" EntitySet="Product" />
+            <End Role="PostProd" EntitySet="PostProd" />
+          </AssociationSet>
         </EntityContainer>
+        <EntityType Name="Product">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Discription" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Photo" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <Property Name="DateAdd" Type="DateTime" Precision="0" />
+          <Property Name="UnitId" Type="Int32" />
+          <Property Name="Count" Type="Int32" />
+          <Property Name="Cost" Type="Decimal" Precision="10" Scale="2" />
+          <NavigationProperty Name="Unit" Relationship="Uchebnaya_practikaModel.FK_Product_Unit" FromRole="Product" ToRole="Unit" />
+          <NavigationProperty Name="ProductCountry" Relationship="Uchebnaya_practikaModel.FK_ProductCountry_Product" FromRole="Product" ToRole="ProductCountry" />
+          <NavigationProperty Name="ProductOrder" Relationship="Uchebnaya_practikaModel.FK_ProductOrder_Product1" FromRole="Product" ToRole="ProductOrder" />
+          <NavigationProperty Name="ProductSupplier" Relationship="Uchebnaya_practikaModel.FK_ProductSupplier_Product" FromRole="Product" ToRole="ProductSupplier" />
+          <NavigationProperty Name="PostProd" Relationship="Uchebnaya_practikaModel.FK_PostProd_Product" FromRole="Product" ToRole="PostProd" />
+        </EntityType>
+        <EntityType Name="ProductOrder">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="OrderId" Type="Int32" />
+          <Property Name="ProductId" Type="Int32" />
+          <Property Name="Count" Type="Int32" />
+          <NavigationProperty Name="Order" Relationship="Uchebnaya_practikaModel.FK_ProductOrder_Order" FromRole="ProductOrder" ToRole="Order" />
+          <NavigationProperty Name="Product" Relationship="Uchebnaya_practikaModel.FK_ProductOrder_Product1" FromRole="ProductOrder" ToRole="Product" />
+        </EntityType>
+        <Association Name="FK_ProductOrder_Order">
+          <End Type="Uchebnaya_practikaModel.Order" Role="Order" Multiplicity="0..1" />
+          <End Type="Uchebnaya_practikaModel.ProductOrder" Role="ProductOrder" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Order">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ProductOrder">
+              <PropertyRef Name="OrderId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Product_Unit">
+          <End Type="Uchebnaya_practikaModel.Unit" Role="Unit" Multiplicity="0..1" />
+          <End Type="Uchebnaya_practikaModel.Product" Role="Product" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Unit">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Product">
+              <PropertyRef Name="UnitId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ProductCountry_Product">
+          <End Type="Uchebnaya_practikaModel.Product" Role="Product" Multiplicity="0..1" />
+          <End Type="Uchebnaya_practikaModel.ProductCountry" Role="ProductCountry" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Product">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ProductCountry">
+              <PropertyRef Name="ProductId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ProductOrder_Product1">
+          <End Type="Uchebnaya_practikaModel.Product" Role="Product" Multiplicity="0..1" />
+          <End Type="Uchebnaya_practikaModel.ProductOrder" Role="ProductOrder" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Product">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ProductOrder">
+              <PropertyRef Name="ProductId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ProductSupplier_Product">
+          <End Type="Uchebnaya_practikaModel.Product" Role="Product" Multiplicity="0..1" />
+          <End Type="Uchebnaya_practikaModel.ProductSupplier" Role="ProductSupplier" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Product">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ProductSupplier">
+              <PropertyRef Name="ProductId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Post">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="PostProd" Relationship="Uchebnaya_practikaModel.FK_PostProd_Post" FromRole="Post" ToRole="PostProd" />
+        </EntityType>
+        <EntityType Name="PostProd">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="ProductId" Type="Int32" Nullable="false" />
+          <Property Name="PostId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Post" Relationship="Uchebnaya_practikaModel.FK_PostProd_Post" FromRole="PostProd" ToRole="Post" />
+          <NavigationProperty Name="Product" Relationship="Uchebnaya_practikaModel.FK_PostProd_Product" FromRole="PostProd" ToRole="Product" />
+        </EntityType>
+        <Association Name="FK_PostProd_Post">
+          <End Type="Uchebnaya_practikaModel.Post" Role="Post" Multiplicity="1" />
+          <End Type="Uchebnaya_practikaModel.PostProd" Role="PostProd" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Post">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="PostProd">
+              <PropertyRef Name="PostId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PostProd_Product">
+          <End Type="Uchebnaya_practikaModel.Product" Role="Product" Multiplicity="1" />
+          <End Type="Uchebnaya_practikaModel.PostProd" Role="PostProd" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Product">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="PostProd">
+              <PropertyRef Name="ProductId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="Хранилище Uchebnaya_practikaModelContainer" CdmEntityContainer="Uchebnaya_practikaEntities">
+        <EntityContainerMapping StorageEntityContainer="Хранилище Uchebnaya_practikaModelContainer" CdmEntityContainer="Ent">
           <EntitySetMapping Name="Country">
             <EntityTypeMapping TypeName="Uchebnaya_practikaModel.Country">
               <MappingFragment StoreEntitySet="Country">
+                <ScalarProperty Name="Color" ColumnName="Color" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
               </MappingFragment>
@@ -764,36 +866,12 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Product">
-            <EntityTypeMapping TypeName="Uchebnaya_practikaModel.Product">
-              <MappingFragment StoreEntitySet="Product">
-                <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="Discription" ColumnName="Discription" />
-                <ScalarProperty Name="Photo" ColumnName="Photo" />
-                <ScalarProperty Name="DateAdd" ColumnName="DateAdd" />
-                <ScalarProperty Name="UnitId" ColumnName="UnitId" />
-                <ScalarProperty Name="Count" ColumnName="Count" />
-                <ScalarProperty Name="Cost" ColumnName="Cost" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="ProductCountry">
             <EntityTypeMapping TypeName="Uchebnaya_practikaModel.ProductCountry">
               <MappingFragment StoreEntitySet="ProductCountry">
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="ProductId" ColumnName="ProductId" />
                 <ScalarProperty Name="CountryId" ColumnName="CountryId" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="ProductOrder">
-            <EntityTypeMapping TypeName="Uchebnaya_practikaModel.ProductOrder">
-              <MappingFragment StoreEntitySet="ProductOrder">
-                <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="OrderId" ColumnName="OrderId" />
-                <ScalarProperty Name="ProductId" ColumnName="ProductId" />
-                <ScalarProperty Name="Count" ColumnName="Count" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -882,6 +960,46 @@
                 <ScalarProperty Name="Patronymic" ColumnName="Patronymic" />
                 <ScalarProperty Name="Phone" ColumnName="Phone" />
                 <ScalarProperty Name="Email" ColumnName="Email" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Product">
+            <EntityTypeMapping TypeName="Uchebnaya_practikaModel.Product">
+              <MappingFragment StoreEntitySet="Product">
+                <ScalarProperty Name="Cost" ColumnName="Cost" />
+                <ScalarProperty Name="Count" ColumnName="Count" />
+                <ScalarProperty Name="UnitId" ColumnName="UnitId" />
+                <ScalarProperty Name="DateAdd" ColumnName="DateAdd" />
+                <ScalarProperty Name="Photo" ColumnName="Photo" />
+                <ScalarProperty Name="Discription" ColumnName="Discription" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ProductOrder">
+            <EntityTypeMapping TypeName="Uchebnaya_practikaModel.ProductOrder">
+              <MappingFragment StoreEntitySet="ProductOrder">
+                <ScalarProperty Name="Count" ColumnName="Count" />
+                <ScalarProperty Name="ProductId" ColumnName="ProductId" />
+                <ScalarProperty Name="OrderId" ColumnName="OrderId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Post">
+            <EntityTypeMapping TypeName="Uchebnaya_practikaModel.Post">
+              <MappingFragment StoreEntitySet="Post">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PostProd">
+            <EntityTypeMapping TypeName="Uchebnaya_practikaModel.PostProd">
+              <MappingFragment StoreEntitySet="PostProd">
+                <ScalarProperty Name="PostId" ColumnName="PostId" />
+                <ScalarProperty Name="ProductId" ColumnName="ProductId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

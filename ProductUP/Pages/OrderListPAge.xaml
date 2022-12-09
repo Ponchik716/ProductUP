@@ -80,14 +80,16 @@
                             <TextBlock Grid.Row="0" Grid.Column="4" Margin="2" TextWrapping="Wrap">
                                 Статус
                             </TextBlock>
+                            <StackPanel Grid.Row="1" Grid.Column="4">
+                                <TextBlock Margin="2" TextWrapping="Wrap">
+                                    <TextBlock.Text>
+                                        <Binding Path="Status.Name"></Binding>
+                                    </TextBlock.Text>
+                                </TextBlock>
+                                <Button Click="DeleteOrderBtn_Click" Width="100" Height="20" Margin="2" Style="{StaticResource Button}">Отменить</Button>
+                            </StackPanel>
 
-                            <TextBlock Grid.Row="1" Grid.Column="4" Margin="2" TextWrapping="Wrap">
-                                <TextBlock.Text>
-                                    <Binding Path="Status.Name"></Binding>
-                                </TextBlock.Text>
-                            </TextBlock>
-
-                            <ListView ItemsSource="{Binding ProductOrder}" Grid.Row="0" Grid.Column="5" Grid.ColumnSpan="2" Grid.RowSpan="2">
+                                <ListView ItemsSource="{Binding ProductOrder}" Grid.Row="0" Grid.Column="5" Grid.ColumnSpan="2" Grid.RowSpan="2">
                                 <ListView.ItemTemplate>
                                     <DataTemplate>
                                         <TextBlock>

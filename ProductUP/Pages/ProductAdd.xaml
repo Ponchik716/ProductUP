@@ -15,8 +15,8 @@
             <RowDefinition Height="1*"/>
         </Grid.RowDefinitions>
 
-        <StackPanel Orientation="Horizontal" Margin="20" Grid.Row="1" >
-            <StackPanel HorizontalAlignment="Center" VerticalAlignment="Top" Orientation="Vertical" Height="250" Margin="10">
+        <StackPanel Orientation="Horizontal" Margin="20" Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Center">
+            <StackPanel HorizontalAlignment="Center" VerticalAlignment="Top" Orientation="Vertical" Width="600" Height="500" Margin="10">
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="10">
                     <TextBlock Style="{StaticResource Text}" Width="150">Название</TextBlock>
                     <TextBox Text="{Binding Name}" Width="200"></TextBox>
@@ -37,13 +37,30 @@
                     <TextBlock Style="{StaticResource Text}" Width="150">Количество</TextBlock>
                     <TextBox Text="{Binding Count}" Width="200"></TextBox>
                 </StackPanel>
-                
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="10">
+                    <TextBlock Style="{StaticResource Text}" Margin="10" HorizontalAlignment="Left">Страна</TextBlock>
+                    <ListView ItemsSource="{Binding ProductCountry}" x:Name="CountryList" Background="#FFD1EEFC">
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <Label Content="{Binding Country.Name}" Background="{Binding Country.Color}">
+                                </Label>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+                    <ComboBox x:Name="ProdCountryCB" ItemsSource="{Binding Country}" Margin="5" Width="100" Height="20">
+                    </ComboBox>
+                    <Button Width="100" Height="20" Style="{StaticResource Button}" Margin="5" Click="DelCountryBtn_Click">Удалить страну</Button>
+                    <Button Width="100" Height="20" Style="{StaticResource Button}" Margin="5" Click="AddCountryBtn_Click">Добавить страну</Button>
+
+                </StackPanel>
+
                 <Button  x:Name="SeaveBtn" Style="{StaticResource Button}" Click="SeaveBtn_Click">Сохранить</Button>
             </StackPanel>
             <StackPanel HorizontalAlignment="Center" VerticalAlignment="Top" Width="300" Height="200" Margin="10">
                 <Image Margin="5" Width="200" Height="150" x:Name="S63AMG"></Image>
                 <Button x:Name="AddImageBtn" Style="{StaticResource Button}" Click="AddImageBtn_Click">Добавить изображение</Button>
             </StackPanel>
+            
         </StackPanel>
     </Grid>
 </Page>

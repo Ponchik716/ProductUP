@@ -59,8 +59,8 @@ namespace ProductUP.Pages
                         Properties.Settings.Default.Save();
                     }
                     Navigation.isAuth = true;
+                    Navigation.role = (int)Navigation.AuthUser.RoleId;
                     Navigation.NextPage(new Nav(new Perehod()));
-                    
                 }
 
             }

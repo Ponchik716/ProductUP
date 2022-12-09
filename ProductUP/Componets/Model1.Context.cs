@@ -7,16 +7,16 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace ProductUP
+namespace ProductUP.Componets
 {
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class Uchebnaya_practikaEntities : DbContext
+    public partial class Ent : DbContext
     {
-        public Uchebnaya_practikaEntities()
-            : base("name=Uchebnaya_practikaEntities")
+        public Ent()
+            : base("name=Ent")
         {
         }
     
@@ -27,9 +27,7 @@ namespace ProductUP
     
         public virtual DbSet<Country> Country { get; set; }
         public virtual DbSet<Order> Order { get; set; }
-        public virtual DbSet<Product> Product { get; set; }
         public virtual DbSet<ProductCountry> ProductCountry { get; set; }
-        public virtual DbSet<ProductOrder> ProductOrder { get; set; }
         public virtual DbSet<ProductSupplier> ProductSupplier { get; set; }
         public virtual DbSet<ReceiptOfProduct> ReceiptOfProduct { get; set; }
         public virtual DbSet<Role> Role { get; set; }
@@ -39,5 +37,9 @@ namespace ProductUP
         public virtual DbSet<sysdiagrams> sysdiagrams { get; set; }
         public virtual DbSet<Unit> Unit { get; set; }
         public virtual DbSet<User> User { get; set; }
+        public virtual DbSet<Product> Product { get; set; }
+        public virtual DbSet<ProductOrder> ProductOrder { get; set; }
+        public virtual DbSet<Post> Post { get; set; }
+        public virtual DbSet<PostProd> PostProd { get; set; }
     }
 }

@@ -7,30 +7,28 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace ProductUP
+namespace ProductUP.Componets
 {
     using System;
     using System.Collections.Generic;
     
-    public partial class Order
+    public partial class ReceiptOfProduct
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Order()
+        public ReceiptOfProduct()
         {
-            this.ProductOrder = new HashSet<ProductOrder>();
+            this.ProductSupplier = new HashSet<ProductSupplier>();
         }
     
         public int Id { get; set; }
-        public Nullable<System.DateTime> OrderDate { get; set; }
         public Nullable<decimal> TotalCost { get; set; }
-        public Nullable<int> EmployeeId { get; set; }
-        public Nullable<int> ClientId { get; set; }
+        public Nullable<System.DateTime> Date { get; set; }
         public Nullable<int> StatusId { get; set; }
+        public Nullable<int> SupplierId { get; set; }
     
-        public virtual Status Status { get; set; }
-        public virtual User User { get; set; }
-        public virtual User User1 { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<ProductOrder> ProductOrder { get; set; }
+        public virtual ICollection<ProductSupplier> ProductSupplier { get; set; }
+        public virtual StatusReceipt StatusReceipt { get; set; }
+        public virtual Supplier Supplier { get; set; }
     }
 }

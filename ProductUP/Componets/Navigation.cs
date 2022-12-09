@@ -12,6 +12,7 @@ namespace ProductUP.Componets
         public static bool isAuth = false;
         public static User AuthUser = null;
         public static List<Nav> navs = new List<Nav>();
+        public static int role = 1;
 
         public static MainWindow main;
         public static void NextPage(Nav nav)
